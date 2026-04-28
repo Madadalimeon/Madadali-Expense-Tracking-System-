@@ -36,34 +36,21 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
-                                    </div>
-                                </div>
+                            <!-- method="post" action="controllers/User/register.php" -->
+                            <form class="user" id="Register">
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <input type="email" class="form-control form-control-user" id="email"
+                                        placeholder="Email Address" name="email" required>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            id="password" placeholder="Password" name="password" required>
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
-                                </a>
+                                </button>
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
@@ -96,6 +83,35 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#Register").on("submit", function(e) {
+                e.preventDefault();
+                let email = $("#email").val();
+                let password = $("#password").val();
+                console.log("Sending:", email, password);
+                $.ajax({
+                    url: "controllers/User/register.php",
+                    type: "POST",
+                    data: {
+                        email: email,
+                        password: password
+                    },
+                    success: function(data) {
+                        console.log("Response:", data);
+                        alert("1-- " + data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error:", xhr.responseText);
+                        console.log("Status:", status);
+                        console.log("Error:", error);
+                        alert("AJAX error occurred");
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
