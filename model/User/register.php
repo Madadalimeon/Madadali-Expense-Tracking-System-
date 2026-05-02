@@ -6,12 +6,22 @@ class register
     function __construct()
     {
         $database = new Database;
-        $database->Database();
+        $this->conn = $database->Database();
     }
     public function RegisterQuery($email, $passwordHash)
     {
         $Query = "INSERT INTO users_tb(email, password) VALUES('$email', '$passwordHash')";
         $result = mysqli_query($this->conn, $Query);
-        return $result;
+        if ($result) {
+            echo json_encode([
+                "status" => "success",
+                "message" => "User registered successfully",
+            ]);
+        } else {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Failed to register user",
+            ]);
+        }
     }
 }

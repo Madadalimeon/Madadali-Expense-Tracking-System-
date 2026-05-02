@@ -98,13 +98,17 @@
                         email: email,
                         password: password
                     },
-                    success: function(data) {
-                        console.log("Response:", data);
-                        alert("1-- " + data);
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response);
+
+                        if (response.status === "success") {
+                            window.location.href = "./login.php";
+                        } else {
+                            alert(response.message);
+                        }
                     },
-                    error: function(xhr, status, error) {
-                        console.log("Error:", xhr.responseText);
-                        console.log("Status:", status);
+                    error: function(error) {
                         console.log("Error:", error);
                         alert("AJAX error occurred");
                     }

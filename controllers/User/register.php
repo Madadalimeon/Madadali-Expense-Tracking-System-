@@ -13,13 +13,10 @@ class UserController {
                 return;
             }            
             $register = new Register();
-            $result = $register->RegisterQuery($email, $passwordHash);
-
-            if ($result) {
-                echo "User registered successfully!";
-            } else {
-                echo "Registration failed!";
-            }
+            $result = $register->RegisterQuery($email, $passwordHash);            
         }
     }
 }
+
+$Controller = new UserController();
+$Controller->register();
